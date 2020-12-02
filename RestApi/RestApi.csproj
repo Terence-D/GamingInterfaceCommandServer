@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GIC.Common\GIC.Common.csproj" />
     <ProjectReference Include="..\KeyMaster\KeyMaster.csproj" />
   </ItemGroup>
 

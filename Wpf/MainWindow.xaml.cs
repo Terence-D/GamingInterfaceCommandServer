@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GIC.Common;
+using GIC.Common.Services;
 using System.Windows;
 
 namespace GIC.Wpf
@@ -10,9 +11,11 @@ namespace GIC.Wpf
     {
         //private MainController controller;
         private bool isRunning = false;
+        private readonly IConfigurationService configurationService;
 
-        public MainWindow()
+        public MainWindow(IConfigurationService configurationService)
         {
+            this.configurationService = configurationService;
             InitializeComponent();
             LoadSettings();
         }
@@ -20,44 +23,34 @@ namespace GIC.Wpf
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
             if (txtPassword.Password.Length < 6)
-                System.Windows.MessageBox.Show("Please use a password at least 6 characters long.");
+                MessageBox.Show("Please use a password at least 6 characters long.");
             else if (txtTarget.Text.Length <= 0)
             {
-                System.Windows.MessageBox.Show("Ensure you set the target of the application you want to send commands to.");
+                MessageBox.Show("Ensure you set the target of the application you want to send commands to.");
             }
             else
             {
-                int port = short.Parse(txtPort.Text);
-                //SetApplication(txtTarget.Text);
-                //SetPassword(txtPassword.Password);
-                //SetPort(port);
                 ToggleServer();
-                //SaveSettings(txtTarget.Text, txtPassword.Password, port);
+                SaveSettings();
             }
         }
 
         private void LoadSettings()
         {
-            txtTarget.Items.Add("Star Citizen");
-            txtTarget.Items.Add("Elite - Dangerous (CLIENT)");
-            //txtTarget.Text = Properties.Settings.Default.target;
-            if (txtTarget.Text == "")
-                txtTarget.Text = "Star Citizen";
-            //if (Properties.Settings.Default.password.Length > 5)
-            //    txtPassword.Password = CryptoHelper.Decrypt(Properties.Settings.Default.password);
-            //int port = Properties.Settings.Default.port;
-            //if (port == 0)
-            //    port = 8091;
-            //txtPort.Text = port.ToString();
+            foreach (string entry in configurationService.Applications)
+            {
+                txtTarget.Items.Add(entry);
+            }
+            txtPassword.Password = Crypto.Decrypt(configurationService.Password);
+            txtPort.Text = configurationService.Port;
         }
 
-        private void SaveSettings(string target, string password, int port)
+        private void SaveSettings()
         {
-            //Properties.Settings.Default.target = target;
-            //String encrypted = CryptoHelper.Encrypt(password);
-            //Properties.Settings.Default.password = encrypted;
-            //Properties.Settings.Default.port = port;
-            //Properties.Settings.Default.Save();
+            configurationService.Password = txtPassword.Password;
+            configurationService.Port = txtPort.Text;
+            if (!configurationService.Applications.Contains(txtTarget.Text))
+                configurationService.Applications.Add(txtTarget.Text);
         }
 
         private void ToggleServer()

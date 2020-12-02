@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace GIC.Console.Services
+namespace GIC.Common.Services
 {
-    interface IConfigurationService
+    public interface IConfigurationService
     {
         List<string> Applications { get; set; }
         string Password { get; set; }

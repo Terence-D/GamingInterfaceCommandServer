@@ -1,4 +1,7 @@
-﻿using GIC.Console.Services;
+﻿using GIC.Common.Services;
+using GIC.Wpf;
+using System;
+using System.Linq;
 
 namespace GIC.Console
 {
@@ -13,7 +16,34 @@ namespace GIC.Console
 
         public void Run(string[] args)
         {
-            
+            if (args.Contains("--console"))
+            {
+                MainMenu();
+            }
+            else if (args.Contains("--web"))
+            {
+                RestApi(args);
+            }
+            else
+            {
+                Gui();
+            }
+        }
+
+        private void MainMenu()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Gui()
+        {
+            var application = new App();
+            application.Run(new MainWindow(configurationService));
+        }
+
+        private void RestApi(string[] args)
+        {
+            GIC.RestApi.Program.Main(args);
         }
     }
 }

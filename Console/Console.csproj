@@ -33,6 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GIC.Common\GIC.Common.csproj" />
     <ProjectReference Include="..\RestApi\RestApi.csproj" />
     <ProjectReference Include="..\Wpf\Wpf.csproj" />
   </ItemGroup>

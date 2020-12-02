@@ -1,11 +1,12 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using GIC.Common.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 
-namespace GIC.Console.Services
+namespace GIC.Console
 {
     class ConfigurationService : IConfigurationService
     {
@@ -30,7 +31,7 @@ namespace GIC.Console.Services
 
         public List<string> Applications
         {
-            get => configuration.GetValue<List<string>>("Applications");
+            get => configuration.GetSection("Applications").Get<List<string>>();
             set
             {
                 configuration["Applications"] = JsonSerializer.Serialize(value);

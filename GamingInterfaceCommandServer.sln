@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApi", "RestApi\RestApi.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf", "Wpf\Wpf.csproj", "{A9C9101A-70D2-4797-ACB4-C755C9F18B4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIC.Common", "GIC.Common\GIC.Common.csproj", "{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{A9C9101A-70D2-4797-ACB4-C755C9F18B4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9C9101A-70D2-4797-ACB4-C755C9F18B4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9C9101A-70D2-4797-ACB4-C755C9F18B4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
