@@ -1,7 +1,4 @@
 ﻿using GIC.Console.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GIC.Console
 {

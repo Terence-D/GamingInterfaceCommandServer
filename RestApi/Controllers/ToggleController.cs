@@ -1,8 +1,8 @@
-﻿using KeyMaster;
+﻿using GIC.KeyMaster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GateKeeper.Controllers
+namespace GIC.RestApi.Controllers
 {
     [ApiController]
     [Authorize]

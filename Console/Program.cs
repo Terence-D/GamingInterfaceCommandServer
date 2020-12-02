@@ -1,10 +1,7 @@
 ﻿using GIC.Wpf;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Linq;
-using System.Windows;
 
 namespace GIC.Console
 {
@@ -48,12 +45,5 @@ namespace GIC.Console
             IServiceProvider serviceProvider = services.BuildServiceProvider();
             serviceProvider.GetService<ConsoleApp>().Run(args);
         }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
     }
 }

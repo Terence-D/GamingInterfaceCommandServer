@@ -1,8 +1,8 @@
-﻿using KeyMaster;
+﻿using GIC.KeyMaster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GateKeeper.Controllers
+namespace GIC.RestApi.Controllers
 {
     /**
      * Used for commands related to a standard key up/down event

@@ -2,12 +2,11 @@
 using System;
 using System.Threading;
 
-namespace KeyMaster
+namespace GIC.KeyMaster
 {
     public static class Action
     {
-        private static object locker = new Object();
-        static bool isInit;
+        private static readonly object locker = new Object();
 
         public static bool SendCommand(Command command, bool quickCommand)
         {

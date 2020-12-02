@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 
-namespace GateKeeper.Controllers
+namespace GIC.RestApi.Controllers
 {
     /**
      * Used to validate the version of the server is what the client expects
