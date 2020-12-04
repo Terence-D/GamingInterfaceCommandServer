@@ -1,6 +1,7 @@
 ﻿using GIC.KeyMaster;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace GIC.RestApi.Controllers
 {
@@ -14,9 +15,20 @@ namespace GIC.RestApi.Controllers
          * The server will process both the key down and up commands.
          * */
         [HttpPost]
-        public void Post(Command value)
+        public IActionResult Post(Command value)
         {
-            Action.SendCommand(value, true);
+            Console.Write($"Received {value.Key} {value.Modifier} {value.activatorType}");
+            bool result = KeyMaster.Action.SendCommand(value, true);
+            if (result)
+            {
+                Console.WriteLine(" OK");
+                return Ok(new { Consumes = "application/json", Values = value });
+            }
+            else
+            {
+                Console.WriteLine(" Failed");
+                return Problem("error processing command");
+            }
         }
     }
 }

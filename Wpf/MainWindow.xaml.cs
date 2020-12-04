@@ -1,6 +1,11 @@
 ﻿using GIC.Common;
 using GIC.Common.Services;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace GIC.Wpf
 {
@@ -9,7 +14,6 @@ namespace GIC.Wpf
     /// </summary>
     public partial class MainWindow : Window
     {
-        //private MainController controller;
         private bool isRunning = false;
         private readonly IConfigurationService configurationService;
 
@@ -18,6 +22,32 @@ namespace GIC.Wpf
             this.configurationService = configurationService;
             InitializeComponent();
             LoadSettings();
+        }
+
+        private static readonly Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+        private static bool IsTextAllowed(string text)
+        {
+            return !regex.IsMatch(text);
+        }
+
+        private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                string text = (string)e.DataObject.GetData(typeof(string));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
+
+        private new void PreviewTextInput (object sender, TextCompositionEventArgs e) {
+            e.Handled = !IsTextAllowed(e.Text);
         }
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
@@ -31,7 +61,6 @@ namespace GIC.Wpf
             else
             {
                 ToggleServer();
-                SaveSettings();
             }
         }
 
@@ -41,16 +70,36 @@ namespace GIC.Wpf
             {
                 txtTarget.Items.Add(entry);
             }
+            txtTarget.Text = txtTarget.Items[0].ToString();
             txtPassword.Password = Crypto.Decrypt(configurationService.Password);
-            txtPort.Text = configurationService.Port;
+            txtPort.Text = configurationService.Port.ToString();
         }
 
         private void SaveSettings()
         {
-            configurationService.Password = txtPassword.Password;
-            configurationService.Port = txtPort.Text;
-            if (!configurationService.Applications.Contains(txtTarget.Text))
-                configurationService.Applications.Add(txtTarget.Text);
+            configurationService.Password = Crypto.Encrypt(txtPassword.Password);
+
+            ushort port;
+            if (ushort.TryParse(txtPort.Text, out port))
+                configurationService.Port = port;
+
+            List<string> apps = new List<string>();
+            int i = 0;
+            foreach (string entry in txtTarget.Items)
+            {
+                if (entry.Equals(txtTarget.Text))
+                    configurationService.SelectedApp = i;
+                apps.Add(entry);
+                i++;
+            }
+            if (!apps.Contains(txtTarget.Text))
+            {
+                txtTarget.Items.Add(txtTarget.Text);
+                apps.Add(txtTarget.Text);
+                configurationService.SelectedApp = i;
+            }
+
+            configurationService.Applications = apps;
         }
 
         private void ToggleServer()
@@ -65,24 +114,39 @@ namespace GIC.Wpf
             }
             else
             {
-                string[] args = new string[]
+                ushort port;
+                if (!ushort.TryParse(txtPort.Text, out port))
                 {
+                    MessageBox.Show("Please enter a port between 1 and 65535");
+                } else
+                {
+                    string[] args = new string[]
+                    {
                     "--port",
-                    txtPort.Text,
+                    port.ToString(),
                     "--password",
                     txtPassword.Password,
                     "--app",
                     txtTarget.Text,
-                };
-                isRunning = RestApi.Program.Start(args);
-                txtPassword.IsEnabled = false;
-                txtPort.IsEnabled = false;
-                txtTarget.IsEnabled = false;
+                    };
+                    SaveSettings();
+                    StartWeb(args);
+                    isRunning = true;
+                    txtPassword.IsEnabled = false;
+                    txtPort.IsEnabled = false;
+                    txtTarget.IsEnabled = false;
+                }
+
             }
-            toggleText();
+            ToggleText();
         }
 
-        private void toggleText()
+        private void StartWeb(string[] args)
+        {
+            Task.Run(() => RestApi.Program.Start(args));
+        }
+
+        private void ToggleText()
         {
             if (!isRunning)
                 btnStart.Content = "Start";

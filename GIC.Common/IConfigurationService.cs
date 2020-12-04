@@ -6,6 +6,7 @@ namespace GIC.Common.Services
     {
         List<string> Applications { get; set; }
         string Password { get; set; }
-        string Port { get; set; }
+        ushort Port { get; set; }
+        int SelectedApp { get; set; }
     }
 }

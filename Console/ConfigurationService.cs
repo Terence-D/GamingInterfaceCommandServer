@@ -23,10 +23,16 @@ namespace GIC.Console
             get => configuration.GetValue<string>("Password");
             set => SetValue("Password", value);
         }
-        public string Port
+        public ushort Port
         {
-            get => configuration.GetValue<string>("Port");
-            set => configuration["Port"] = value;
+            get => configuration.GetValue<ushort>("Port");
+            set => SetValue("Port", value);
+        }
+
+        public int SelectedApp
+        {
+            get => configuration.GetValue<int>("SelectedApp");
+            set => SetValue("SelectedApp", value);
         }
 
         public List<string> Applications
@@ -34,7 +40,7 @@ namespace GIC.Console
             get => configuration.GetSection("Applications").Get<List<string>>();
             set
             {
-                configuration["Applications"] = JsonSerializer.Serialize(value);
+                SetValue("Applications", value);
             }
         }
 
@@ -46,7 +52,7 @@ namespace GIC.Console
                 Dictionary<string, object> jsonValues = JsonSerializer.Deserialize<Dictionary<string, object>>(File.ReadAllText(configFilePaths[0]));
                 if (jsonValues.ContainsKey(key))
                 {
-                    jsonValues[key] = JsonSerializer.Serialize(newValue);
+                    jsonValues[key] = newValue;
 
                     JsonSerializerOptions options = new JsonSerializerOptions { WriteIndented = true };
                     string newJson = JsonSerializer.Serialize(jsonValues, options);
