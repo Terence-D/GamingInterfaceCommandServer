@@ -1,5 +1,5 @@
 # GamingInterfaceCommandServer
-2.0 version of the GIC Server, all new rewrite
+Alpha 2.0 version of the GIC Server, all new rewrite.  Should be feature parity but will require a new client version to work with it.
 
 # Gaming Input Command Server (Windows)
 Windows server for the Gaming Interface Client
