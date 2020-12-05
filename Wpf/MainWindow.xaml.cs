@@ -156,8 +156,8 @@ namespace GIC.Wpf
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //About window = new About();
-            //window.Show();
+            About window = new About();
+            window.Show();
         }
     }
 }
