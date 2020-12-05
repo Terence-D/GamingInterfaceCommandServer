@@ -2,6 +2,7 @@
 using GIC.Common.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,6 +23,7 @@ namespace GIC.Wpf
             this.configurationService = configurationService;
             InitializeComponent();
             LoadSettings();
+            WindowHandles();
         }
 
         private static readonly Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
@@ -50,27 +52,13 @@ namespace GIC.Wpf
             e.Handled = !IsTextAllowed(e.Text);
         }
 
-        private void btnStart_Click(object sender, RoutedEventArgs e)
-        {
-            if (txtPassword.Password.Length < 6)
-                MessageBox.Show("Please use a password at least 6 characters long.");
-            else if (txtTarget.Text.Length <= 0)
-            {
-                MessageBox.Show("Ensure you set the target of the application you want to send commands to.");
-            }
-            else
-            {
-                ToggleServer();
-            }
-        }
-
         private void LoadSettings()
         {
             foreach (string entry in configurationService.Applications)
             {
-                txtTarget.Items.Add(entry);
+                lstApps.Items.Add(entry);
             }
-            txtTarget.Text = txtTarget.Items[0].ToString();
+            lstApps.SelectedIndex = configurationService.SelectedApp;
             txtPassword.Password = Crypto.Decrypt(configurationService.Password);
             txtPort.Text = configurationService.Port.ToString();
         }
@@ -83,22 +71,16 @@ namespace GIC.Wpf
             if (ushort.TryParse(txtPort.Text, out port))
                 configurationService.Port = port;
 
-            List<string> apps = new List<string>();
-            int i = 0;
-            foreach (string entry in txtTarget.Items)
-            {
-                if (entry.Equals(txtTarget.Text))
-                    configurationService.SelectedApp = i;
-                apps.Add(entry);
-                i++;
-            }
-            if (!apps.Contains(txtTarget.Text))
-            {
-                txtTarget.Items.Add(txtTarget.Text);
-                apps.Add(txtTarget.Text);
-                configurationService.SelectedApp = i;
-            }
+            SaveAppList();
+        }
 
+        private void SaveAppList()
+        {
+            List<string> apps = new List<string>();
+
+            configurationService.SelectedApp = lstApps.SelectedIndex;
+            foreach (string entry in lstApps.Items)
+                apps.Add(entry);
             configurationService.Applications = apps;
         }
 
@@ -110,7 +92,8 @@ namespace GIC.Wpf
                 isRunning = !isRunning;
                 txtPassword.IsEnabled = true;
                 txtPort.IsEnabled = true;
-                txtTarget.IsEnabled = true;
+                lstApps.IsEnabled = true;
+                cboApps.IsEnabled = true;
             }
             else
             {
@@ -122,19 +105,21 @@ namespace GIC.Wpf
                 {
                     string[] args = new string[]
                     {
-                    "--port",
-                    port.ToString(),
-                    "--password",
-                    txtPassword.Password,
-                    "--app",
-                    txtTarget.Text,
+                        "--port",
+                        port.ToString(),
+                        "--password",
+                        txtPassword.Password,
+                        "--app",
+                        lstApps.SelectedItem.ToString(),
                     };
+
                     SaveSettings();
                     StartWeb(args);
                     isRunning = true;
                     txtPassword.IsEnabled = false;
                     txtPort.IsEnabled = false;
-                    txtTarget.IsEnabled = false;
+                    lstApps.IsEnabled = false;
+                    cboApps.IsEnabled = false;
                 }
 
             }
@@ -154,10 +139,65 @@ namespace GIC.Wpf
                 btnStart.Content = "Stop";
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void WindowHandles() {
+            Process[] processlist = Process.GetProcesses();
+
+            foreach (Process process in processlist)
+            {
+                if (!string.IsNullOrEmpty(process.MainWindowTitle))
+                {
+                    cboApps.Items.Add(process.MainWindowTitle);
+                }
+            }
+        }
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-            //About window = new About();
-            //window.Show();
+            if (txtPassword.Password.Length < 6)
+                MessageBox.Show("Please use a password at least 6 characters long.");
+            else if (lstApps.SelectedIndex == -1)
+            {
+                MessageBox.Show("Ensure you set the target of the application you want to send commands to.");
+            }
+            else
+            {
+                ToggleServer();
+            }
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (cboApps.Text.Length != 0)
+                lstApps.Items.Add(cboApps.Text);
+            SaveAppList();
+        }
+
+        private void cboApps_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0)
+                lstApps.Items.Add(e.AddedItems[0].ToString());
+            SaveAppList();
+        }
+
+        private void btnRemove_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstApps.SelectedIndex != -1)
+            {
+                lstApps.Items.Remove(lstApps.SelectedItem);
+                lstApps.SelectedIndex = -1;
+            }
+            SaveAppList();
+        }
+
+        private void btnAbout_Click(object sender, RoutedEventArgs e)
+        {
+            About window = new About();
+            window.Show();
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            //todo
         }
     }
 }

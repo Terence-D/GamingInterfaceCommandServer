@@ -6,6 +6,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>GIC.Wpf</AssemblyName>
     <RootNamespace>GIC.Wpf</RootNamespace>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
