@@ -1,6 +1,5 @@
 ﻿using GIC.Common;
 using GIC.Common.Services;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
@@ -48,7 +47,7 @@ namespace GIC.Wpf
             }
         }
 
-        private new void PreviewTextInput (object sender, TextCompositionEventArgs e) {
+        private new void PreviewTextInput(object sender, TextCompositionEventArgs e) {
             e.Handled = !IsTextAllowed(e.Text);
         }
 
@@ -197,7 +196,8 @@ namespace GIC.Wpf
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("explorer.exe", "https://github.com/Terence-D/GamingInterfaceCommandServer/wiki");
+            Help window = new Help();
+            window.Show();
         }
     }
 }
