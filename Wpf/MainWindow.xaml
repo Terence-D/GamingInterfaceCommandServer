@@ -4,20 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="GIC Server" Height="183.333" Width="259" ResizeMode="NoResize">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="118*"/>
-            <ColumnDefinition Width="133*"/>
-        </Grid.ColumnDefinitions>
-        <Label Content="Port&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="26" Width="32"/>
-        <TextBox x:Name="txtPort" DataObject.Pasting="TextBoxPasting" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Height="23" Margin="1,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="8091" Grid.Column="1"/>
-        <Label Content="Password&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="72" Height="26"/>
-        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="1,45,0,0" PasswordChar="*" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
-        <Label Content="Target" HorizontalAlignment="Left" Margin="10,72,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.907,-2.615" Height="26" Width="43"/>
-        <ComboBox x:Name="txtTarget" HorizontalAlignment="Left" Height="23" Margin="1,75,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1" IsEditable="True"/>
-        <Button x:Name="btnStart" Content="Start" Margin="10,103,33,0" Click="btnStart_Click" Height="22" VerticalAlignment="Top"/>
-        <Button Content="About" Grid.Column="1" HorizontalAlignment="Left" Margin="39,104,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        Title="GIC Server" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+    <Grid Width="408" Height="267">
+        <Label Content="Port" HorizontalContentAlignment ="Right" HorizontalAlignment="Left" Margin="240,83,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txtPort" DataObject.Pasting="TextBoxPasting" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="278,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="8091"/>
+        <Label Content="Password" HorizontalContentAlignment ="Right" HorizontalAlignment="Left" Margin="212,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.875,0.886"/>
+        <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Height="23" Margin="277,106,0,0" PasswordChar="*" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Target" HorizontalContentAlignment ="Center" Margin="10,10,203,0" VerticalAlignment="Top" RenderTransformOrigin="-0.907,-2.615" Height="26"/>
+        <Button x:Name="btnStart" Content="Start" Margin="212,151,10,0" VerticalAlignment="Top" Height="60" Click="btnStart_Click"/>
+        <Button Content="About" x:Name="btnAbout" HorizontalAlignment="Left" Margin="323,38,0,0" VerticalAlignment="Top" Width="74" Height="20" Click="btnAbout_Click"/>
+        <ListBox Margin="10,36,203,37" x:Name="lstApps"/>
+        <ComboBox HorizontalAlignment="Left" Margin="10,229,0,0" VerticalAlignment="Top" Width="194" IsEditable="True" x:Name="cboApps" SelectionChanged="cboApps_SelectionChanged"/>
+        <Button Content="Remove" x:Name="btnRemove" HorizontalAlignment="Left" Margin="148,11,0,0" VerticalAlignment="Top" Width="56" Click="btnRemove_Click"/>
+        <Button Content="Help" x:Name="btnHelp" HorizontalAlignment="Left" Margin="323,13,0,0" VerticalAlignment="Top" Width="74" Height="20" Click="btnHelp_Click"/>
+        <Button Content="Add" x:Name="btnAdd" HorizontalAlignment="Left" Margin="209,231,0,0" VerticalAlignment="Top" Width="56" Click="btnAdd_Click"/>
 
     </Grid>
 </Window>
