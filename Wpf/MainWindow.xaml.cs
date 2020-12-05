@@ -197,7 +197,7 @@ namespace GIC.Wpf
 
         private void btnHelp_Click(object sender, RoutedEventArgs e)
         {
-            //todo
+            Process.Start("explorer.exe", "https://github.com/Terence-D/GamingInterfaceCommandServer/wiki");
         }
     }
 }
