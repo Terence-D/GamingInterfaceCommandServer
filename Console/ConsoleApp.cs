@@ -37,6 +37,7 @@ namespace GIC.Console
 
         private void Gui()
         {
+            System.Console.WriteLine("Now starting GICS, please wait.  Server output will be displayed here");
             var application = new App();
             application.Run(new MainWindow(configurationService));
         }

@@ -16,12 +16,12 @@ namespace GIC.Wpf
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
-            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            Process.Start("explorer.exe", e.Uri.AbsoluteUri);
             e.Handled = true;
         }
     }
