@@ -8,7 +8,6 @@ namespace GIC.RestApi.Controllers
      * Used to validate the version of the server is what the client expects
      * */
     [ApiController]
-    [Authorize]
     [Route("api/[controller]")]
     public class VersionController : ControllerBase
     {
@@ -16,6 +15,7 @@ namespace GIC.RestApi.Controllers
         /**
          * Returns current API version of this server
          * */
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult Get()
         {
@@ -23,7 +23,7 @@ namespace GIC.RestApi.Controllers
             //FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
             string version = API_VERSION;// fileVersionInfo.ProductVersion;
 
-            return Ok(new { Consumes = "application/json", Values = version });
+            return Ok(new { Version = version });
         }
     }
 }
