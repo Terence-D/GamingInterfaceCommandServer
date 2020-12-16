@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command.cs" />
-    <Compile Include="GICValues.cs" />
     <Compile Include="Action.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

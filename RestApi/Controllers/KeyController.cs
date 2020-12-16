@@ -11,26 +11,16 @@ namespace GIC.RestApi.Controllers
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
-    public class KeyController : ControllerBase
+    public class KeyController : AbstractBase
     {
         /**
-         * Client will send in a specific key command along with modifiers and the event type - key down or key up
+         * Client will send in a specific key command along with modifiers and the event type.
+         * Server will process either key down or key up
          * */
         [HttpPost]
         public IActionResult Post([FromBody] Command value)
         {
-            Console.Write($"Received {value.Key} {value.Modifier} {value.activatorType}");
-            bool result = KeyMaster.Action.SendCommand(value, false);
-            if (result)
-            {
-                Console.WriteLine(" OK");
-                return Ok(new { Consumes = "application/json", Values = value });
-            }
-            else
-            {
-                Console.WriteLine(" Failed");
-                return Problem("error processing command");
-            }
+            return SendKeystroke(value, false);
         }
     }
 }

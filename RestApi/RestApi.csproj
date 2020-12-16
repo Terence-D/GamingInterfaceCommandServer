@@ -4,6 +4,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <AssemblyName>GIC.RestApi</AssemblyName>
     <RootNamespace>GIC.RestApi</RootNamespace>
+    <UserSecretsId>5a1d7de8-33b4-48bc-aa49-99f10d5d6213</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

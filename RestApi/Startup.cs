@@ -65,27 +65,5 @@ namespace GIC.RestApi
             });
 
         }
-
-        private Task AuthenticationHandler(ValidatePrincipalContext context)
-        {
-            if (context.Password == Program.key) {
-                var claims = new List<Claim> {
-                    new Claim(ClaimTypes.Name,
-                                context.UserName,
-                                context.Options.ClaimsIssuer)
-                };
-
-                var ticket = new AuthenticationTicket(
-                    new ClaimsPrincipal(new ClaimsIdentity(
-                        claims,
-                        BasicAuthenticationDefaults.AuthenticationScheme)),
-                    new AuthenticationProperties(),
-                    BasicAuthenticationDefaults.AuthenticationScheme);
-
-                
-                return Task.FromResult(AuthenticateResult.Success(ticket));
-            }
-            return Task.FromResult(AuthenticateResult.Fail("Authentication failed."));
-        }
     }
 }

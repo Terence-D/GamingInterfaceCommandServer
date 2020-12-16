@@ -96,11 +96,11 @@ namespace GIC.Wpf
             }
             else
             {
-                ushort port;
-                if (!ushort.TryParse(txtPort.Text, out port))
+                if (!ushort.TryParse(txtPort.Text, out ushort port))
                 {
                     MessageBox.Show("Please enter a port between 1 and 65535");
-                } else
+                }
+                else
                 {
                     string[] args = new string[]
                     {
