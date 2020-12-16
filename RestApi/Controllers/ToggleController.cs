@@ -5,30 +5,22 @@ using System;
 
 namespace GIC.RestApi.Controllers
 {
+    /**
+     * Used for commands related to a single key stroke event
+     * */
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
-    public class ToggleController : ControllerBase
+    public class ToggleController : AbstractBase
     {
         /**
          * Client will send in a specific key command along with modifiers and the event type.  
          * The server will process both the key down and up commands.
          * */
         [HttpPost]
-        public IActionResult Post(Command value)
+        public IActionResult Post([FromBody] Command value)
         {
-            Console.Write($"Received {value.Key} {value.Modifier} {value.activatorType}");
-            bool result = KeyMaster.Action.SendCommand(value, true);
-            if (result)
-            {
-                Console.WriteLine(" OK");
-                return Ok(new { Consumes = "application/json", Values = value });
-            }
-            else
-            {
-                Console.WriteLine(" Failed");
-                return Problem("error processing command");
-            }
+            return SendKeystroke(value, true);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace GIC.RestApi
                 string[] credentials = Encoding.UTF8.GetString(credentialBytes).Split(new[] { ':' }, 2);
                 string username = credentials[0];
                 string password = credentials[1];
-                if (username != "gic" || password != Program.key) throw new Exception();
+                if (username != "gic" || password != Program.Key) throw new Exception();
             }
             catch
             {

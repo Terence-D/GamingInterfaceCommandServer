@@ -6,7 +6,8 @@ namespace GIC.KeyMaster
 {
     public static class Action
     {
-        private static readonly object locker = new Object();
+        public static string Application { get; set; }
+        private static readonly object locker = new object();
 
         public static bool SendCommand(Command command, bool quickCommand)
         {
@@ -17,7 +18,7 @@ namespace GIC.KeyMaster
                 int rv = 0;
                 try
                 {
-                    rv = AutoItX.WinWaitActive("*Untitled - Notepad");// GICValues.Instance.Application);
+                    rv = AutoItX.WinWaitActive(Application);
                 }
                 catch (Exception e)
                 {
@@ -31,7 +32,7 @@ namespace GIC.KeyMaster
                 }
                 else
                 {
-                    if (command.activatorType == Command.KEY_DOWN)
+                    if (command.ActivatorType == Command.KEY_DOWN)
                     {
                         //if any modifiers, send them first
                         foreach (string modifier in command.Modifier)
@@ -43,7 +44,7 @@ namespace GIC.KeyMaster
                         if (quickCommand)
                         {
                             //keep everything pressed for 10ms
-                            System.Threading.Thread.Sleep(10);
+                            Thread.Sleep(10);
                             AutoItX.Send("{" + command.Key + " up}");
                             //if any modifiers, unset them last
                             foreach (string modifier in command.Modifier)
@@ -52,7 +53,7 @@ namespace GIC.KeyMaster
                             }
                         }
                     }
-                    else if (command.activatorType == Command.KEY_UP && !quickCommand)
+                    else if (command.ActivatorType == Command.KEY_UP && !quickCommand)
                     {
                         AutoItX.Send("{" + command.Key + " up}");
                         //if any modifiers, unset them last

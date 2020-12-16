@@ -19,7 +19,7 @@ namespace GIC.RestApi
             public string Application { get; set; }
         }
 
-        public static string key;
+        public static string Key { get; internal set; }
 
         public static void Main(string[] args)
         {
@@ -52,7 +52,8 @@ namespace GIC.RestApi
         private static void RunOptions(Options opts)
         {
             CheckFirewall(opts.Port);
-            key = Crypto.Encrypt(opts.Password);
+            Key = Crypto.Encrypt(opts.Password);
+            KeyMaster.Action.Application = opts.Application;
             string baseAddress = "http://" + "*" + ":" + opts.Port + "/";
 
             host = CreateHostBuilder(baseAddress).Build();

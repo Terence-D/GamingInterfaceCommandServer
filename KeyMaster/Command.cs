@@ -7,6 +7,6 @@
 
         public string Key { get; set; }
         public string[] Modifier { get; set; }
-        public int activatorType { get; set; }
+        public int ActivatorType { get; set; }
     }
 }
