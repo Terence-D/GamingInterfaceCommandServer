@@ -8,8 +8,14 @@ namespace GIC.KeyMaster
         public static string Application { get; set; }
         private static readonly object locker = new object();
 
-        public static bool SendCommand(Command command, bool quickCommand)
+        public static bool SendCommand(int activator, string key, string[] modifier, bool quickCommand)
         {
+            Command command = new Command()
+            {
+                ActivatorType = activator,
+                Key = key,
+                Modifier = modifier
+            };
             Monitor.Enter(locker);
             try
             {
