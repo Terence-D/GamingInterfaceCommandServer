@@ -19,7 +19,6 @@ namespace GIC.Console
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(configuration);
-
             services.AddSingleton<IConfigurationService, ConfigurationService>();
         }
     }

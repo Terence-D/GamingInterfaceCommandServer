@@ -1,5 +1,4 @@
 ﻿using GIC.Common.Services;
-using GIC.Wpf;
 using System;
 using System.Linq;
 
@@ -16,30 +15,18 @@ namespace GIC.Console
 
         public void Run(string[] args)
         {
-            if (args.Contains("--console"))
-            {
-                MainMenu();
-            }
-            else if (args.Contains("--web"))
+            if (args.Contains("--web"))
             {
                 RestApi(args);
-            }
-            else
+            } else
             {
-                Gui();
+                MainMenu();
             }
         }
 
         private void MainMenu()
         {
             throw new NotImplementedException();
-        }
-
-        private void Gui()
-        {
-            System.Console.WriteLine("Now starting GICS GUI, please wait.  Server output will be displayed here");
-            var application = new App();
-            application.Run(new MainWindow(configurationService));
         }
 
         private void RestApi(string[] args)

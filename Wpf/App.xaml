@@ -1,9 +1,8 @@
-﻿<Application x:Class="GamingInterfaceCommandServer.App"
+﻿<Application x:Class="GIC.Wpf.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:GamingInterfaceCommandServer"
-             StartupUri="MainWindow.xaml">
+             xmlns:local="clr-namespace:GIC.Wpf"
+             Startup="OnStartup">
     <Application.Resources>
-         
     </Application.Resources>
 </Application>

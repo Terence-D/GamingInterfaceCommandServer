@@ -6,10 +6,21 @@ namespace GIC.KeyMaster
 {
     public static class Action
     {
-        public static string Application { get; set; }
         private static readonly object locker = new object();
+        public static string Application { get; set; }
 
-        public static bool SendCommand(Command command, bool quickCommand)
+        public static bool SendCommand(int activator, string key, string[] modifier, bool quickCommand)
+        {
+            Command command = new Command()
+            {
+                ActivatorType = activator,
+                Key = key,
+                Modifier = modifier
+            };
+            return WindowsAction(command, quickCommand);
+        }
+
+        private static bool WindowsAction(Command command, bool quickCommand)
         {
             Monitor.Enter(locker);
             try
@@ -65,7 +76,8 @@ namespace GIC.KeyMaster
                     //Console.WriteLine("ending command for " + command.Key + " " + sec);
                 }
                 return true;
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return false;

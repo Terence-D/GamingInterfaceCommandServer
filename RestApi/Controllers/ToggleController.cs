@@ -1,7 +1,6 @@
-﻿using GIC.KeyMaster;
+﻿using GIC.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace GIC.RestApi.Controllers
 {

@@ -1,9 +1,6 @@
-﻿using GIC.KeyMaster;
+﻿using GIC.Common;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GIC.RestApi.Controllers
 {
@@ -12,7 +9,7 @@ namespace GIC.RestApi.Controllers
         protected IActionResult SendKeystroke(Command command, bool toggle)
         {
             Console.WriteLine($" Received {command.Key} Toggle={toggle.ToString().ToUpper()}");
-            bool result = KeyMaster.Action.SendCommand(command, toggle);
+            bool result = KeyMaster.Action.SendCommand(command.ActivatorType, command.Key, command.Modifier, toggle);
             if (result)
             {
                 Console.WriteLine(" OK");

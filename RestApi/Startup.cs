@@ -22,20 +22,8 @@ namespace GIC.RestApi
             Configuration = configuration; 
         }
 
-        // For more information on how to configure your application, visit http://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services
-            //.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme)
-            //.AddBasicAuthentication(
-            //    options =>
-            //    {
-            //    options.Realm = "GamingInterfaceClient";
-            //        options.Events = new BasicAuthenticationEvents
-            //        {
-            //            OnValidatePrincipal = context => AuthenticationHandler(context)
-            //        };
-            //    });
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
