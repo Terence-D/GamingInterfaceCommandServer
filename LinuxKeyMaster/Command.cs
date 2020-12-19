@@ -1,4 +1,4 @@
-﻿namespace GIC.Linux.KeyMaster
+﻿namespace GIC.KeyMaster
 {
     public class Command
     {

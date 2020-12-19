@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace GIC.Linux.KeyMaster
+namespace GIC.KeyMaster
 {
     public static class ShellHelper
     {
