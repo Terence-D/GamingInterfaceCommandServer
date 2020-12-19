@@ -11,7 +11,7 @@ namespace GIC.RestApi
     {
         public class Options
         {
-            [Option("Web", Default = false, Required = false)]
+            [Option("web", Default = false, Required = false)]
             public string Web { get; set; }
             [Option("port", Default = false, Required = true, HelpText = "IP Port to Listen on")]
             public int Port { get; set; }
