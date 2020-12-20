@@ -1,7 +1,6 @@
-﻿using GIC.KeyMaster;
+﻿using GIC.Common;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace GIC.RestApi.Controllers
 {
@@ -14,9 +13,9 @@ namespace GIC.RestApi.Controllers
     public class KeyController : AbstractBase
     {
         /**
-         * Client will send in a specific key command along with modifiers and the event type.
-         * Server will process either key down or key up
-         * */
+        * Client will send in a specific key command along with modifiers and the event type.
+        * Server will process either key down or key up
+        * */
         [HttpPost]
         public IActionResult Post([FromBody] Command value)
         {

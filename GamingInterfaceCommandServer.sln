@@ -5,13 +5,15 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Console", "Console\Console.csproj", "{A519AABF-F2DE-48CA-8C80-4BFB0DD36923}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyMaster", "KeyMaster\KeyMaster.csproj", "{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RestApi", "RestApi\RestApi.csproj", "{84CB0235-828C-4084-8276-277B57FCD8E6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wpf", "Wpf\Wpf.csproj", "{A9C9101A-70D2-4797-ACB4-C755C9F18B4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIC.Common", "GIC.Common\GIC.Common.csproj", "{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GIC.Common", "GIC.Common\GIC.Common.csproj", "{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinuxKeyMaster", "LinuxKeyMaster\LinuxKeyMaster.csproj", "{15CDE310-6314-4BD8-ACD5-06AFB3733BEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyMaster", "KeyMaster\KeyMaster.csproj", "{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +25,6 @@ Global
 		{A519AABF-F2DE-48CA-8C80-4BFB0DD36923}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A519AABF-F2DE-48CA-8C80-4BFB0DD36923}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A519AABF-F2DE-48CA-8C80-4BFB0DD36923}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}.Release|Any CPU.Build.0 = Release|Any CPU
 		{84CB0235-828C-4084-8276-277B57FCD8E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{84CB0235-828C-4084-8276-277B57FCD8E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84CB0235-828C-4084-8276-277B57FCD8E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +37,14 @@ Global
 		{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1512CEF7-1994-4076-AE2A-FE97FA4C44DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15CDE310-6314-4BD8-ACD5-06AFB3733BEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CDE310-6314-4BD8-ACD5-06AFB3733BEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CDE310-6314-4BD8-ACD5-06AFB3733BEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CDE310-6314-4BD8-ACD5-06AFB3733BEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F7CBA2C-8978-4D86-B359-820C1B3A9C90}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
