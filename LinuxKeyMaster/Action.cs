@@ -19,8 +19,7 @@ namespace GIC.KeyMaster
             Monitor.Enter(locker);
             try
             {
-
-                string toExecute = $"xdotool windowactivate --sync \"$(xdotool search ${Application} | head -1)\" key ${command.Key}";
+                string toExecute = $"xdotool windowactivate --sync \"$(xdotool search {Application} | head -1)\" key {command.Key}";
 
                 ShellHelper.Bash(toExecute);
                 return true;
