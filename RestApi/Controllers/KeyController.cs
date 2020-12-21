@@ -19,6 +19,7 @@ namespace GIC.RestApi.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Command value)
         {
+            Program.ReceivedKey(value, false);
             return SendKeystroke(value, false);
         }
     }

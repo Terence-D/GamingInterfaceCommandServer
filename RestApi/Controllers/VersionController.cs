@@ -19,9 +19,9 @@ namespace GIC.RestApi.Controllers
         [HttpPost]
         public IActionResult Get()
         {
+            Program.ReceivedVersionCheck();
             Assembly assembly = Assembly.GetExecutingAssembly();
-            //FileVersionInfo fileVersionInfo = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = API_VERSION;// fileVersionInfo.ProductVersion;
+            string version = API_VERSION;
 
             return Ok(new { Version = version });
         }

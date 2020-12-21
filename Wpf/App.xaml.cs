@@ -1,4 +1,5 @@
 ﻿using GIC.Common.Services;
+using GIC.RestApi;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
@@ -12,6 +13,7 @@ namespace GIC.Wpf
     {
         private ServiceProvider serviceProvider;
         private IConfigurationRoot configuration;
+        internal static string[] Arguments;
 
         public App()
         {
@@ -34,6 +36,9 @@ namespace GIC.Wpf
 
         protected void OnStartup(object sender, StartupEventArgs e)
         {
+            if (e.Args.Length > 0)
+                Arguments = e.Args;
+
             var mainWindow = serviceProvider.GetService<MainWindow>();
             mainWindow.Show();
         }
