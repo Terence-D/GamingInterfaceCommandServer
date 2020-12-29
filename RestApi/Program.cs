@@ -1,4 +1,5 @@
 using CommandLine;
+using GIC.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
@@ -11,8 +12,6 @@ namespace GIC.RestApi
     {
         public class Options
         {
-            [Option("web", Default = false, Required = false)]
-            public string Web { get; set; }
             [Option("port", Default = false, Required = true, HelpText = "IP Port to Listen on")]
             public int Port { get; set; }
             [Option("password", Default = false, Required = true, HelpText = "Password to expect from client")]
@@ -21,7 +20,20 @@ namespace GIC.RestApi
             public string Application { get; set; }
         }
 
+        internal static void ReceivedKey(Common.Command value, bool quickCommand)
+        {
+            if (AppListener != null)
+                AppListener.KeystrokeReceived(value.ActivatorType, value.Key, value.Modifier, quickCommand);
+        }
+
+        internal static void ReceivedVersionCheck()
+        {
+            if (AppListener != null)
+                AppListener.Output("Version check received");
+        }
+
         public static string Key { get; internal set; }
+        public static IListener AppListener;
 
         public static void Main(string[] args)
         {
@@ -43,8 +55,10 @@ namespace GIC.RestApi
             host.StopAsync();
         }
 
-        public static bool Start(string[] args)
+        public static bool Start(string[] args, IListener listener = null)
         {
+            if (listener != null)
+                AppListener = listener;
             Parser.Default.ParseArguments<Options>(args)
                 .WithParsed(RunOptions)
                 .WithNotParsed(HandleParseError);
@@ -64,7 +78,8 @@ namespace GIC.RestApi
 
         private static void HandleParseError(IEnumerable<Error> errs)
         {
-            //handle errors
+            //handle errorsE
+            System.Environment.Exit(1);
         }
 
         private static void CheckFirewall(int port)

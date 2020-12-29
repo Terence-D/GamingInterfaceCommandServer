@@ -15,18 +15,7 @@ namespace GIC.Console
 
         public void Run(string[] args)
         {
-            if (args.Contains("--web"))
-            {
-                RestApi(args);
-            } else
-            {
-                MainMenu();
-            }
-        }
-
-        private void MainMenu()
-        {
-            throw new NotImplementedException();
+            RestApi(args);
         }
 
         private void RestApi(string[] args)

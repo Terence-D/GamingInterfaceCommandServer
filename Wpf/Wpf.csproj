@@ -1,10 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <AssemblyName>GIC.Wpf</AssemblyName>
+    <AssemblyName>GIC</AssemblyName>
     <RootNamespace>GIC.Wpf</RootNamespace>
     <Version>2.0.0</Version>
     <PackageIcon>app.ico</PackageIcon>

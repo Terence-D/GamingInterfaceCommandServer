@@ -6,7 +6,7 @@
         Icon="app.ico"
         mc:Ignorable="d"
         Title="GIC Server" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
-    <Grid Width="408" Height="267">
+    <Grid Width="408" Height="332">
         <Label Content="Port" HorizontalContentAlignment ="Right" HorizontalAlignment="Left" Margin="240,83,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="txtPort" DataObject.Pasting="TextBoxPasting" PreviewTextInput="PreviewTextInput" HorizontalAlignment="Left" Margin="278,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="8091"/>
         <Label Content="Password" HorizontalContentAlignment ="Right" HorizontalAlignment="Left" Margin="212,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.875,0.886"/>
@@ -14,11 +14,12 @@
         <Label Content="Target" HorizontalContentAlignment ="Center" Margin="10,10,203,0" VerticalAlignment="Top" RenderTransformOrigin="-0.907,-2.615" Height="26"/>
         <Button x:Name="btnStart" Content="Start" Margin="212,151,10,0" VerticalAlignment="Top" Height="60" Click="btnStart_Click"/>
         <Button Content="About" x:Name="btnAbout" HorizontalAlignment="Left" Margin="323,38,0,0" VerticalAlignment="Top" Width="74" Height="20" Click="btnAbout_Click"/>
-        <ListBox Margin="10,36,203,37" x:Name="lstApps"/>
-        <ComboBox HorizontalAlignment="Left" Margin="10,229,0,0" VerticalAlignment="Top" Width="194" IsEditable="True" x:Name="cboApps" SelectionChanged="cboApps_SelectionChanged"/>
+        <ListBox Margin="10,36,203,0" x:Name="lstApps" Height="188" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="10,229,0,0" VerticalAlignment="Top" Width="195" IsEditable="True" x:Name="cboApps" SelectionChanged="cboApps_SelectionChanged"/>
         <Button Content="Remove" x:Name="btnRemove" HorizontalAlignment="Left" Margin="148,11,0,0" VerticalAlignment="Top" Width="56" Click="btnRemove_Click"/>
         <Button Content="Help" x:Name="btnHelp" HorizontalAlignment="Left" Margin="323,13,0,0" VerticalAlignment="Top" Width="74" Height="20" Click="btnHelp_Click"/>
         <Button Content="Add" x:Name="btnAdd" HorizontalAlignment="Left" Margin="209,231,0,0" VerticalAlignment="Top" Width="56" Click="btnAdd_Click"/>
+        <TextBox x:Name="txtOutput" HorizontalAlignment="Center" Margin="0,256,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="387" Height="66" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
 
     </Grid>
 </Window>

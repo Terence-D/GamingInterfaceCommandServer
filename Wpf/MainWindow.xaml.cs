@@ -1,20 +1,26 @@
 ﻿using GIC.Common;
 using GIC.Common.Services;
+using GIC.RestApi;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace GIC.Wpf
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IListener
     {
         private bool isRunning = false;
+        private bool cmdLinePassword;
+        private bool cmdLinePort;
+        private string cmdLineApp;
         private readonly IConfigurationService configurationService;
 
         public MainWindow(IConfigurationService configurationService)
@@ -23,6 +29,38 @@ namespace GIC.Wpf
             InitializeComponent();
             LoadSettings();
             WindowHandles();
+            CheckArgs();
+        }
+
+        private void CheckArgs()
+        {
+            if (App.Arguments != null && App.Arguments.Length > 0)
+            {
+                for (int i = 0; i < App.Arguments.Length - 1; i++)
+                {
+                    if (App.Arguments[i].ToLower().Equals("--password"))
+                    {
+                        i++;
+                        txtPassword.Password = App.Arguments[i];
+                        cmdLinePassword = true;
+                    }
+                    else if (App.Arguments[i].ToLower().Equals("--port"))
+                    {
+                        i++;
+                        txtPort.Text = App.Arguments[i];
+                        cmdLinePort = true;
+                    }
+                    else if (App.Arguments[i].ToLower().Equals("--app"))
+                    {
+                        i++;
+                        cmdLineApp = App.Arguments[i];
+                    }
+                    if (!string.IsNullOrEmpty(cmdLineApp) && cmdLinePassword && cmdLinePort)
+                    {
+                        ToggleServer();
+                    }
+                }
+            }
         }
 
         private static readonly Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
@@ -102,6 +140,7 @@ namespace GIC.Wpf
                 }
                 else
                 {
+                    cmdLineApp = lstApps.SelectedItem.ToString();
                     string[] args = new string[]
                     {
                         "--port",
@@ -109,11 +148,12 @@ namespace GIC.Wpf
                         "--password",
                         txtPassword.Password,
                         "--app",
-                        lstApps.SelectedItem.ToString(),
+                        cmdLineApp,
                     };
 
                     SaveSettings();
                     StartWeb(args);
+                    Output($"Starting Server listening on Port {port} for App {cmdLineApp}");
                     isRunning = true;
                     txtPassword.IsEnabled = false;
                     txtPort.IsEnabled = false;
@@ -127,7 +167,7 @@ namespace GIC.Wpf
 
         private void StartWeb(string[] args)
         {
-            Task.Run(() => RestApi.Program.Start(args));
+            Task.Run(() => Program.Start(args, this));
         }
 
         private void ToggleText()
@@ -198,6 +238,32 @@ namespace GIC.Wpf
         {
             Help window = new Help();
             window.Show();
+        }
+
+        public void KeystrokeReceived(int activator, string key, string[] modifier, bool quickCommand)
+        {
+            string output = $"Key {key}";
+            foreach (string mod in modifier)
+                output += $"+{mod}";
+            if (activator == 0)
+                output += " pressed";
+            else
+                output += " let go";
+            Dispatcher.Invoke(() =>
+            {
+
+                txtOutput.Text += $"{output}\n";
+                txtOutput.ScrollToEnd();
+            });
+        }
+
+        public void Output(string message)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                txtOutput.Text += $"{message}\n";
+                txtOutput.ScrollToEnd();
+            });
         }
     }
 }
