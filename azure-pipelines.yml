@@ -31,3 +31,9 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: 'Wpf/**.csproj'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
