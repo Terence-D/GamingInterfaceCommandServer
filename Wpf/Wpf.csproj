@@ -32,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Console\Console.csproj" />
     <ProjectReference Include="..\GIC.Common\GIC.Common.csproj" />
     <ProjectReference Include="..\RestApi\RestApi.csproj" />
   </ItemGroup>
