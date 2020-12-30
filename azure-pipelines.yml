@@ -32,7 +32,7 @@ steps:
     publishWebProjects: false
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
     zipAfterPublish: True
-    projects: 'Wpf/**.csproj'
+    projects: 'GIC.Windows/**.csproj'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
