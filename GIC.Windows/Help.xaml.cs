@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Windows;
 
-namespace GIC.Wpf
+namespace GIC.Windows
 {
     /// <summary>
     /// Interaction logic for Help.xaml

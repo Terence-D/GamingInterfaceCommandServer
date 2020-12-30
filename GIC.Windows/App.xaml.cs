@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
-namespace GIC.Wpf
+namespace GIC.Windows
 {
     /// <summary>
     /// Interaction logic for App.xaml
