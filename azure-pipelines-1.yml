@@ -23,11 +23,6 @@ steps:
     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
     zipAfterPublish: True
     projects: 'Console/**.csproj'
-- task: rename@0
-  inputs:
-    Command: 'rename'
-    SourceFile: '$(build.artifactstagingdirectory)/drop/Console.zip'
-    NewName: '$(build.artifactstagingdirectory)/drop/Linux.zip'
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
