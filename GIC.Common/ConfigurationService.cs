@@ -1,14 +1,13 @@
-﻿using GIC.Common.Services;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 
-namespace GIC.Wpf
+namespace GIC.Common.Services
 {
-    class ConfigurationService : IConfigurationService
+    public class ConfigurationService : IConfigurationService
     {
         private readonly IConfigurationRoot configuration;
 
@@ -17,11 +16,10 @@ namespace GIC.Wpf
             configuration = configurationRoot;
         }
 
-
         public string Password
         {
-            get => configuration.GetValue<string>("Password");
-            set => SetValue("Password", value);
+            get => Crypto.Decrypt(configuration.GetValue<string>("Password"));
+            set => SetValue("Password", Crypto.Encrypt(value));
         }
         public ushort Port
         {
@@ -59,6 +57,7 @@ namespace GIC.Wpf
                     File.WriteAllText(configFilePaths[0], newJson);
                 }
             }
+            configuration.Reload();
         }
     }
 }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Wpf": {
+      "commandName": "Project",
+      "commandLineArgs": "--password 123456 --app TestB --port 8091"
+    }
+  }
+}

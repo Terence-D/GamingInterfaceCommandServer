@@ -10,17 +10,7 @@ namespace GIC.RestApi
 {
     public class Program
     {
-        public class Options
-        {
-            [Option("port", Default = false, Required = true, HelpText = "IP Port to Listen on")]
-            public int Port { get; set; }
-            [Option("password", Default = false, Required = true, HelpText = "Password to expect from client")]
-            public string Password { get; set; }
-            [Option("app", Default = false, Required = true, HelpText = "Application to send commands to")]
-            public string Application { get; set; }
-        }
-
-        internal static void ReceivedKey(Common.Command value, bool quickCommand)
+        internal static void ReceivedKey(Command value, bool quickCommand)
         {
             if (AppListener != null)
                 AppListener.KeystrokeReceived(value.ActivatorType, value.Key, value.Modifier, quickCommand);
@@ -59,13 +49,21 @@ namespace GIC.RestApi
         {
             if (listener != null)
                 AppListener = listener;
-            Parser.Default.ParseArguments<Options>(args)
-                .WithParsed(RunOptions)
+            Parser.Default.ParseArguments<CommandLineParameters>(args)
+                .WithParsed(RunServer)
                 .WithNotParsed(HandleParseError);
             return true;
         }
 
-        private static void RunOptions(Options opts)
+        public static void Start(CommandLineParameters opts, IListener listener = null)
+        {
+            if (listener != null)
+                AppListener = listener;
+
+            RunServer(opts);
+        }
+
+        private static void RunServer(CommandLineParameters opts)
         {
             CheckFirewall(opts.Port);
             Key = Crypto.Encrypt(opts.Password);
@@ -78,7 +76,7 @@ namespace GIC.RestApi
 
         private static void HandleParseError(IEnumerable<Error> errs)
         {
-            //handle errorsE
+            //handle errors
             System.Environment.Exit(1);
         }
 

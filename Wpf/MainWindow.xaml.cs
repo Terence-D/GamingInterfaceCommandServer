@@ -1,4 +1,5 @@
-﻿using GIC.Common;
+﻿using CommandLine;
+using GIC.Common;
 using GIC.Common.Services;
 using GIC.RestApi;
 using System;
@@ -8,7 +9,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace GIC.Wpf
 {
@@ -18,49 +18,16 @@ namespace GIC.Wpf
     public partial class MainWindow : Window, IListener
     {
         private bool isRunning = false;
-        private bool cmdLinePassword;
-        private bool cmdLinePort;
-        private string cmdLineApp;
         private readonly IConfigurationService configurationService;
+        private CommandLineParameters parameters = new CommandLineParameters();
 
         public MainWindow(IConfigurationService configurationService)
         {
             this.configurationService = configurationService;
             InitializeComponent();
             LoadSettings();
-            WindowHandles();
             CheckArgs();
-        }
-
-        private void CheckArgs()
-        {
-            if (App.Arguments != null && App.Arguments.Length > 0)
-            {
-                for (int i = 0; i < App.Arguments.Length - 1; i++)
-                {
-                    if (App.Arguments[i].ToLower().Equals("--password"))
-                    {
-                        i++;
-                        txtPassword.Password = App.Arguments[i];
-                        cmdLinePassword = true;
-                    }
-                    else if (App.Arguments[i].ToLower().Equals("--port"))
-                    {
-                        i++;
-                        txtPort.Text = App.Arguments[i];
-                        cmdLinePort = true;
-                    }
-                    else if (App.Arguments[i].ToLower().Equals("--app"))
-                    {
-                        i++;
-                        cmdLineApp = App.Arguments[i];
-                    }
-                    if (!string.IsNullOrEmpty(cmdLineApp) && cmdLinePassword && cmdLinePort)
-                    {
-                        ToggleServer();
-                    }
-                }
-            }
+            WindowHandles();
         }
 
         private static readonly Regex regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
@@ -91,21 +58,21 @@ namespace GIC.Wpf
 
         private void LoadSettings()
         {
+            lstApps.Items.Clear();
             foreach (string entry in configurationService.Applications)
             {
                 lstApps.Items.Add(entry);
             }
             lstApps.SelectedIndex = configurationService.SelectedApp;
-            txtPassword.Password = Crypto.Decrypt(configurationService.Password);
+            txtPassword.Password = configurationService.Password;
             txtPort.Text = configurationService.Port.ToString();
         }
 
         private void SaveSettings()
         {
-            configurationService.Password = Crypto.Encrypt(txtPassword.Password);
+            configurationService.Password = txtPassword.Password;
 
-            ushort port;
-            if (ushort.TryParse(txtPort.Text, out port))
+            if (ushort.TryParse(txtPort.Text, out ushort port))
                 configurationService.Port = port;
 
             SaveAppList();
@@ -125,7 +92,7 @@ namespace GIC.Wpf
         {
             if (isRunning)
             {
-                RestApi.Program.Stop();
+                Program.Stop();
                 isRunning = !isRunning;
                 txtPassword.IsEnabled = true;
                 txtPort.IsEnabled = true;
@@ -140,20 +107,12 @@ namespace GIC.Wpf
                 }
                 else
                 {
-                    cmdLineApp = lstApps.SelectedItem.ToString();
-                    string[] args = new string[]
-                    {
-                        "--port",
-                        port.ToString(),
-                        "--password",
-                        txtPassword.Password,
-                        "--app",
-                        cmdLineApp,
-                    };
-
                     SaveSettings();
-                    StartWeb(args);
-                    Output($"Starting Server listening on Port {port} for App {cmdLineApp}");
+                    parameters.Application = configurationService.Applications[configurationService.SelectedApp];
+                    parameters.Password = configurationService.Password;
+                    parameters.Port = configurationService.Port;
+                    Output($"Starting Server listening on Port {port} for App {parameters.Application}");
+                    Task.Run(() => Program.Start(parameters, this));
                     isRunning = true;
                     txtPassword.IsEnabled = false;
                     txtPort.IsEnabled = false;
@@ -163,11 +122,6 @@ namespace GIC.Wpf
 
             }
             ToggleText();
-        }
-
-        private void StartWeb(string[] args)
-        {
-            Task.Run(() => Program.Start(args, this));
         }
 
         private void ToggleText()
@@ -264,6 +218,61 @@ namespace GIC.Wpf
                 txtOutput.Text += $"{message}\n";
                 txtOutput.ScrollToEnd();
             });
+        }
+
+        private void CheckArgs()
+        {
+            if (App.Arguments != null)
+                Parser.Default.ParseArguments<CommandLineParameters>(App.Arguments)
+                    .WithParsed(RunRestApi)
+                    .WithNotParsed(HandleParseError);
+        }
+
+        private void RunRestApi(CommandLineParameters opts)
+        {
+            if (string.IsNullOrEmpty(opts.Password))
+            {
+                opts.Password = configurationService.Password;
+            }
+            else
+            {
+                configurationService.Password = opts.Password;
+            }
+            if (opts.Port == 0)
+            {
+                opts.Port = configurationService.Port;
+            }
+            else
+            {
+                configurationService.Port = opts.Port;
+            }
+            if (!string.IsNullOrEmpty(opts.Application))
+            {
+                List<string> apps = configurationService.Applications;
+                bool found = false;
+                foreach (string app in apps)
+                {
+                    if (app.Equals(opts.Application)) {
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found)
+                    apps.Add(opts.Application);
+                configurationService.SelectedApp = apps.Count -1;
+                configurationService.Applications = apps;
+
+            }
+
+            parameters = opts;
+            LoadSettings(); //reload to update the ui
+            ToggleServer();
+        }
+
+        private static void HandleParseError(IEnumerable<Error> errs)
+        {
+            Environment.Exit(1);
         }
     }
 }
