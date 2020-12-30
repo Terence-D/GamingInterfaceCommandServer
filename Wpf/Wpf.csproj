@@ -10,6 +10,7 @@
     <PackageIcon>app.ico</PackageIcon>
     <Authors>Terence Doerksen</Authors>
     <Company>Coffee Shop Studio</Company>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
