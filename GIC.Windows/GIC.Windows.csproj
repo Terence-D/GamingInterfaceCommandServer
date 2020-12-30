@@ -2,31 +2,22 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>GIC.Console</AssemblyName>
-    <RootNamespace>GIC.Console</RootNamespace>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>GIC</AssemblyName>
+    <RootNamespace>GIC.Windows</RootNamespace>
     <Version>2.0.0</Version>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <PackageIcon>app.ico</PackageIcon>
     <Authors>Terence Doerksen</Authors>
     <Company>Coffee Shop Studio</Company>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="appsettings.Development.json" />
     <None Remove="appsettings.json" />
-    <None Include="..\Wpf\app.ico">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="appsettings.Development.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Include="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -35,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommandLineParser" Version="2.8.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.0" />
@@ -44,6 +34,13 @@
   <ItemGroup>
     <ProjectReference Include="..\GIC.Common\GIC.Common.csproj" />
     <ProjectReference Include="..\RestApi\RestApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="app.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </Resource>
   </ItemGroup>
 
 </Project>

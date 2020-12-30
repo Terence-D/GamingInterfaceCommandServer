@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace GIC.Console
+namespace GIC.Linux
 {
     class Program
     {

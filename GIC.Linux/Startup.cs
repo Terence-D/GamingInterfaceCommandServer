@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace GIC.Console
+namespace GIC.Linux
 {
     class Startup
     {

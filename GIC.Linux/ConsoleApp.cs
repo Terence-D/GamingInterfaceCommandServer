@@ -4,7 +4,7 @@ using GIC.Common.Services;
 using System;
 using System.Collections.Generic;
 
-namespace GIC.Console
+namespace GIC.Linux
 {
     class ConsoleApp
     {
