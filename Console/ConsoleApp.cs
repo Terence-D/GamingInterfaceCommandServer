@@ -34,16 +34,14 @@ namespace GIC.Console
             }
             if (opts.Port == 0)
             {
-                System.Console.WriteLine("opots");
                 opts.Port = configurationService.Port;
             }
             else
             {
                 configurationService.Port = opts.Port;
             }
-            GIC.RestApi.Program.RunOptions(opts);
+            GIC.RestApi.Program.Start(opts);
         }
-
 
         private static void HandleParseError(IEnumerable<Error> errs)
         {

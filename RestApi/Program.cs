@@ -50,12 +50,20 @@ namespace GIC.RestApi
             if (listener != null)
                 AppListener = listener;
             Parser.Default.ParseArguments<CommandLineParameters>(args)
-                .WithParsed(RunOptions)
+                .WithParsed(RunServer)
                 .WithNotParsed(HandleParseError);
             return true;
         }
 
-        public static void RunOptions(CommandLineParameters opts)
+        public static void Start(CommandLineParameters opts, IListener listener = null)
+        {
+            if (listener != null)
+                AppListener = listener;
+
+            RunServer(opts);
+        }
+
+        private static void RunServer(CommandLineParameters opts)
         {
             CheckFirewall(opts.Port);
             Key = Crypto.Encrypt(opts.Password);

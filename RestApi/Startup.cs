@@ -4,11 +4,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using ZNetCS.AspNetCore.Authentication.Basic;
-using ZNetCS.AspNetCore.Authentication.Basic.Events;
 
 namespace GIC.RestApi
 {
