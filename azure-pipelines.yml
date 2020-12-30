@@ -39,3 +39,8 @@ steps:
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
   condition: succeededOrFailed()
+- task: rename@0
+  inputs:
+    Command: 'rename'
+    SourceFile: '$(build.artifactstagingdirectory)/drop/Wpf.zip'
+    NewName: '$(build.artifactstagingdirectory)/drop/Windows.zip'
