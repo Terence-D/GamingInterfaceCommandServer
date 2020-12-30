@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 
-namespace GIC.Wpf
+namespace GIC.Windows
 {
     /// <summary>
     /// Interaction logic for About.xaml
