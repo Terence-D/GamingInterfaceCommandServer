@@ -6,7 +6,7 @@
     <UseWPF>true</UseWPF>
     <AssemblyName>GIC</AssemblyName>
     <RootNamespace>GIC.Windows</RootNamespace>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <PackageIcon>app.ico</PackageIcon>
     <Authors>Terence Doerksen</Authors>
     <Company>Coffee Shop Studio</Company>
@@ -16,6 +16,8 @@
   </PropertyGroup>
   <PropertyGroup>
     <InvariantGlobalization>true</InvariantGlobalization>
+    <AssemblyVersion>2.0.1.0</AssemblyVersion>
+    <FileVersion>2.0.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
