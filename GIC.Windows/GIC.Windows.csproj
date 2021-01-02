@@ -15,7 +15,6 @@
     <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <InvariantGlobalization>true</InvariantGlobalization>
     <AssemblyVersion>2.0.1.0</AssemblyVersion>
     <FileVersion>2.0.1.0</FileVersion>
   </PropertyGroup>
