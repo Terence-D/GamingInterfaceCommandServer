@@ -250,17 +250,20 @@ namespace GIC.Windows
             {
                 List<string> apps = configurationService.Applications;
                 bool found = false;
-                foreach (string app in apps)
+                for(int i=0; i < apps.Count; i++)
                 {
-                    if (app.Equals(opts.Application)) {
+                    if (apps[i].Equals(opts.Application)) {
+                        configurationService.SelectedApp = i;
                         found = true;
                         break;
                     }
                 }
 
                 if (!found)
+                {
                     apps.Add(opts.Application);
-                configurationService.SelectedApp = apps.Count -1;
+                    configurationService.SelectedApp = apps.Count - 1;
+                }
                 configurationService.Applications = apps;
 
             }
