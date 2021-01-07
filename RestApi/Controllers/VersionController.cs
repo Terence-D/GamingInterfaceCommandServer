@@ -11,7 +11,7 @@ namespace GIC.RestApi.Controllers
     [Route("api/[controller]")]
     public class VersionController : ControllerBase
     {
-        private const string API_VERSION = "2.0.0.0";
+        private const string API_VERSION = "2.1.0.0";
         /**
          * Returns current API version of this server
          * */
@@ -19,11 +19,7 @@ namespace GIC.RestApi.Controllers
         [HttpPost]
         public IActionResult Get()
         {
-            Program.ReceivedVersionCheck();
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            string version = API_VERSION;
-
-            return Ok(new { Version = version });
+            return Ok(new { Version = API_VERSION });
         }
     }
 }

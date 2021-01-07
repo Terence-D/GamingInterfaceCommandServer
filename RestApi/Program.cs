@@ -23,7 +23,7 @@ namespace GIC.RestApi
         }
 
         public static string Key { get; internal set; }
-        public static IListener AppListener;
+        private static IListener AppListener;
 
         public static void Main(string[] args)
         {
@@ -66,7 +66,7 @@ namespace GIC.RestApi
         private static void RunServer(CommandLineParameters opts)
         {
             CheckFirewall(opts.Port);
-            Key = Crypto.Encrypt(opts.Password);
+            Key = CryptoService.Encrypt(opts.Password);
             KeyMaster.Action.Application = opts.Application;
             string baseAddress = "http://" + "*" + ":" + opts.Port + "/";
 

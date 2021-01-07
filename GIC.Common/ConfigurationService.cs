@@ -18,8 +18,8 @@ namespace GIC.Common.Services
 
         public string Password
         {
-            get => Crypto.Decrypt(configuration.GetValue<string>("Password"));
-            set => SetValue("Password", Crypto.Encrypt(value));
+            get => CryptoService.Decrypt(configuration.GetValue<string>("Password"));
+            set => SetValue("Password", CryptoService.Encrypt(value));
         }
         public ushort Port
         {
