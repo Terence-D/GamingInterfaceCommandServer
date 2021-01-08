@@ -19,6 +19,7 @@ namespace GIC.RestApi.Controllers
         [HttpPost]
         public IActionResult Get()
         {
+            Program.ReceivedVersionCheck();
             return Ok(new { Version = API_VERSION });
         }
     }
